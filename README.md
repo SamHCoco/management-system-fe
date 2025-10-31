@@ -22,3 +22,4 @@ This project is built with the following technologies and versions:
 - `npm run dev` - Start development server
 - `npm run build` - Build for production (TypeScript compilation + Vite build)
 - `npm run preview` - Preview production build
+ 
