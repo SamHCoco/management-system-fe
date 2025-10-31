@@ -2,26 +2,31 @@ name: Management System FE - Build
 
 on:
   push:
-    branches: [ master, pre-master, develop ]
+    branches: [master, pre-master, develop]
   pull_request:
-    branches: [ master, pre-master, develop ]
+    branches: [master, pre-master, develop]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
+    name: Build and Verify
+
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Setup Node.js 18
-      uses: actions/setup-node@v4
-      with:
-        node-version: 18.x
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: npm ci
-    
-    - name: Build project
-      run: npm run build
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Verify build
+        run: echo "Build completed successfully"
