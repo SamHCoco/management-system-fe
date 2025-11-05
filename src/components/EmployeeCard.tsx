@@ -8,7 +8,7 @@ interface Props {
 
 function EmployeeCard({ employee }: Props) {
   if (!employee) {
-    return null;
+    return <Text>Error</Text>;
   }
 
   return (
