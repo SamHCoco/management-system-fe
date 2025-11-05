@@ -1,23 +1,21 @@
 import { Employee } from "@/hooks/useEmployees";
-import {
-  Card,
-  CardBody,
-  Avatar,
-  Box,
-  Text,
-  VStack,
-  Icon,
-} from "@chakra-ui/react";
+import userImage from "../assets/user-account.webp";
+import { Card, CardBody, Avatar, Text, VStack, Image } from "@chakra-ui/react";
 
 interface Props {
-  employee: Employee;
+  employee: Employee | null | undefined;
 }
 
 function EmployeeCard({ employee }: Props) {
+  if (!employee) {
+    return null;
+  }
+
   return (
     <Card>
       <CardBody>
         <VStack spacing={3} align="center">
+          <Image src={userImage} />
           <Avatar
             size="lg"
             name={`${employee.firstName} ${employee.lastName}`}
@@ -27,9 +25,7 @@ function EmployeeCard({ employee }: Props) {
             {employee.firstName} {employee.lastName}
           </Text>
 
-          <Text textAlign="center">
-            Department: {employee.employeeDepartmentId}
-          </Text>
+          <Text textAlign="center">Department: {employee.department}</Text>
 
           <Text textAlign="center">Email: {employee.email}</Text>
 

@@ -7,6 +7,7 @@ export interface Employee {
   middleNames: string | null;
   lastName: string;
   employeeDepartmentId: number;
+  department: string;
   email: string;
   phone: string;
   addressFirstLine: string;
