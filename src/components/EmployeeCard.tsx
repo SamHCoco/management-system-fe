@@ -8,11 +8,17 @@ interface Props {
 
 function EmployeeCard({ employee }: Props) {
   if (!employee) {
-    return <Text>Error</Text>;
+    return (
+      <Card>
+        <CardBody>
+          <Text>Error</Text>
+        </CardBody>
+      </Card>
+    );
   }
 
   return (
-    <Card>
+    <Card onClick={() => console.log("Employee card clicked")}>
       <CardBody>
         <VStack spacing={3} align="center">
           <Image src={userImage} />

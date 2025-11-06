@@ -41,7 +41,7 @@ function useEmployees() {
       )
       .then((res) => setEmployees(res.data.content))
       .catch((err) => setError(err.message));
-  });
+  }, []);
 
   return { employees, error };
 }
