@@ -37,7 +37,7 @@ function useEmployees() {
   useEffect(() => {
     apiClientEmployee
       .get<ListAllEmployeesResponse>(
-        "/employee/list-all?page=0&size=15&sort=id"
+        "/api/v1/employee/list-all?page=0&size=15&sort=id"
       )
       .then((res) => setEmployees(res.data.content))
       .catch((err) => setError(err.message));
