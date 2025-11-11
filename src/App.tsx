@@ -29,12 +29,10 @@ function App() {
 
         <GridItem area="main" bg="white">
           <Routes>
-            {/* TODO - potentially remove */}
             <Route path="/" element={<Navigate to="/employees" replace />} />
-
             <Route path="/employees" element={<EmployeeGrid />} />
             <Route path="/employees/new" element={<EmployeeForm />} />
-
+            <Route path="/employee/edit" element={<EmployeeForm />} />
             <Route path="*" element={<div>Page Not Found</div>} />
           </Routes>
         </GridItem>
