@@ -7,6 +7,8 @@ import {
 import { Grid, GridItem } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import EmployeeGrid from "./components/EmployeeGrid";
+import EmployeeForm from "./components/EmployeeForm";
+import "bootstrap/dist/css/bootstrap.css";
 
 function App() {
   return (
@@ -27,11 +29,10 @@ function App() {
 
         <GridItem area="main" bg="white">
           <Routes>
-            {/* TODO - potentially remove */}
             <Route path="/" element={<Navigate to="/employees" replace />} />
-
             <Route path="/employees" element={<EmployeeGrid />} />
-
+            <Route path="/employees/new" element={<EmployeeForm />} />
+            <Route path="/employee/edit" element={<EmployeeForm />} />
             <Route path="*" element={<div>Page Not Found</div>} />
           </Routes>
         </GridItem>
