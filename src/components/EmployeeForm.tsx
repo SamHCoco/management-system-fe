@@ -85,7 +85,7 @@ function EmployeeForm() {
         />
       </div>
       <button type="submit" className="btn btn-primary">
-        {isEdit ? "Update Employee" : "Create Employee"}
+        {isEdit ? "Update" : "Create"}
       </button>
     </form>
   );
