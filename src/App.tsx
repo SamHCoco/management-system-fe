@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar";
 import EmployeeGrid from "./components/EmployeeGrid";
 import EmployeeForm from "./components/EmployeeForm";
 import "bootstrap/dist/css/bootstrap.css";
+import MenuList from "./components/MenuList";
 
 function App() {
   return (
@@ -24,7 +25,7 @@ function App() {
         </GridItem>
 
         <GridItem area="aside" bg="gold">
-          Aside
+          <MenuList />
         </GridItem>
 
         <GridItem area="main" bg="white">
