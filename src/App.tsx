@@ -8,36 +8,102 @@ import { Grid, GridItem } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import EmployeeGrid from "./components/EmployeeGrid";
 import EmployeeForm from "./components/EmployeeForm";
-import "bootstrap/dist/css/bootstrap.css";
 import MenuList from "./components/MenuList";
+import LoginPage from "./pages/LoginPage";
+import UserPage from "./pages/UserPage";
+import { AuthProvider, useAuth } from "./auth/AuthProvider";
+import "bootstrap/dist/css/bootstrap.css";
+
+// Redirects unauthenticated users to /login
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+  const { isAuthenticated, isLoading } = useAuth();
+  if (isLoading) return null;
+  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+};
+
+// Layout shared by all protected pages
+const AppLayout = ({ children }: { children: React.ReactNode }) => (
+  <Grid
+    templateAreas={{
+      base: `"nav" "main"`,
+      lg: `"nav nav" "aside main"`,
+    }}
+  >
+    <GridItem area="nav" bg="white">
+      <NavBar />
+    </GridItem>
+    <GridItem area="aside" bg="gold">
+      <MenuList />
+    </GridItem>
+    <GridItem area="main" bg="white">
+      {children}
+    </GridItem>
+  </Grid>
+);
 
 function App() {
   return (
     <Router>
-      <Grid
-        templateAreas={{
-          base: `"nav" "main"`,
-          lg: `"nav nav" "aside main"`,
-        }}
-      >
-        <GridItem area="nav" bg="white">
-          <NavBar />
-        </GridItem>
+      <AuthProvider>
+        <Routes>
+          {/* Public */}
+          <Route path="/login" element={<LoginPage />} />
 
-        <GridItem area="aside" bg="gold">
-          <MenuList />
-        </GridItem>
+          {/* Protected — wrapped in shared layout */}
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <AppLayout>
+                  <Navigate to="/employees" replace />
+                </AppLayout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/employees"
+            element={
+              <PrivateRoute>
+                <AppLayout>
+                  <EmployeeGrid />
+                </AppLayout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/employees/new"
+            element={
+              <PrivateRoute>
+                <AppLayout>
+                  <EmployeeForm />
+                </AppLayout>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/employee/edit"
+            element={
+              <PrivateRoute>
+                <AppLayout>
+                  <EmployeeForm />
+                </AppLayout>
+              </PrivateRoute>
+            }
+          />
 
-        <GridItem area="main" bg="white">
-          <Routes>
-            <Route path="/" element={<Navigate to="/employees" replace />} />
-            <Route path="/employees" element={<EmployeeGrid />} />
-            <Route path="/employees/new" element={<EmployeeForm />} />
-            <Route path="/employee/edit" element={<EmployeeForm />} />
-            <Route path="*" element={<div>Page Not Found</div>} />
-          </Routes>
-        </GridItem>
-      </Grid>
+          {/* User profile page — no app layout */}
+          <Route
+            path="/user"
+            element={
+              <PrivateRoute>
+                <UserPage />
+              </PrivateRoute>
+            }
+          />
+
+          <Route path="*" element={<div>Page Not Found</div>} />
+        </Routes>
+      </AuthProvider>
     </Router>
   );
 }
