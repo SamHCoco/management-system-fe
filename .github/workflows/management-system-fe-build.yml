@@ -2,9 +2,9 @@ name: Management System FE - Build
 
 on:
   push:
-    branches: [master, pre-master, develop]
+    branches: [master, pre-master, develop, claude]
   pull_request:
-    branches: [master, pre-master, develop]
+    branches: [master, pre-master, develop, claude]
 
 jobs:
   build:
