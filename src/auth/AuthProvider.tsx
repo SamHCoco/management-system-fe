@@ -5,7 +5,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   initError: string | null;
-  login: (loginHint?: string) => void;
+  login: (redirectUri?: string) => void;
   logout: () => void;
 }
 
@@ -46,15 +46,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       });
   }, []);
 
-  const login = (loginHint?: string) => {
+  const login = (redirectUri?: string) => {
     keycloak.login({
-      loginHint,
-      redirectUri: window.location.origin + "/user",
+      redirectUri: redirectUri ?? window.location.origin + "/employees",
     });
   };
 
   const logout = () => {
-    keycloak.logout({ redirectUri: window.location.origin + "/login" });
+    keycloak.logout({ redirectUri: window.location.origin + "/employees" });
   };
 
   return (

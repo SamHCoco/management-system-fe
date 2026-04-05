@@ -14,11 +14,16 @@ import UserPage from "./pages/UserPage";
 import { AuthProvider, useAuth } from "./auth/AuthProvider";
 import "bootstrap/dist/css/bootstrap.css";
 
-// Redirects unauthenticated users to /login
+// Redirects unauthenticated users to the Keycloak login page,
+// passing the current URL so Keycloak redirects back here after login.
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, login } = useAuth();
   if (isLoading) return null;
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" replace />;
+  if (!isAuthenticated) {
+    login(window.location.href);
+    return null;
+  }
+  return <>{children}</>;
 };
 
 // Layout shared by all protected pages

@@ -56,10 +56,7 @@ const LoginPage = () => {
       return;
     }
     setError(null);
-    // Initiates the Authorization Code + PKCE flow.
-    // The username is forwarded as login_hint so Keycloak can pre-fill it.
-    // Authentication (password verification) is handled securely by Keycloak.
-    login(username.trim());
+    login();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
